@@ -11,7 +11,7 @@ from fastapi import FastAPI
 from routers import users_db
 from routers import products, users
 from routers import basic_auth_users
-from routers import jwt_auth_users
+from routers import jwt_auth_users, supabase
 
 from fastapi.staticfiles import StaticFiles
 # http://127.0.0.1:8000
@@ -22,6 +22,7 @@ app.include_router(users.router)
 app.include_router(jwt_auth_users.router)
 app.include_router(basic_auth_users.router)
 app.include_router(users_db.router)
+app.include_router(supabase.router)
 app.mount("/statics", StaticFiles(directory="statics"), name="statics")  # Para servir archivos estaticos
  
 @app.get("/") #get es una función de fastAPI que permite obtener información
