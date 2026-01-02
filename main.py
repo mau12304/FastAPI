@@ -12,6 +12,7 @@ from routers import users_db
 from routers import products, users
 from routers import basic_auth_users
 from routers import jwt_auth_users, supabase
+from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi.staticfiles import StaticFiles
 # http://127.0.0.1:8000
@@ -25,6 +26,12 @@ app.include_router(users_db.router)
 app.include_router(supabase.router)
 app.mount("/statics", StaticFiles(directory="statics"), name="statics")  # Para servir archivos estaticos
  
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # en prod: tu dominio
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 @app.get("/") #get es una función de fastAPI que permite obtener información
 #es una peticion GET, que siempre sucede al cargar la pagina
 async def root():
